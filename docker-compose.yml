@@ -1,0 +1,24 @@
+# Postgres for local dev. We won't connect the app to this until Phase 2,
+# but it's one less thing to set up later -- run `docker compose up -d` any
+# time from here on and Postgres will be waiting on localhost:5432.
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: taskflow_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-taskflow}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-taskflow}
+      POSTGRES_DB: ${POSTGRES_DB:-taskflow}
+    ports:
+      - "5432:5432"
+    volumes:
+      - taskflow_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-taskflow}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  taskflow_pgdata:

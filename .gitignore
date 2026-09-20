@@ -1,0 +1,22 @@
+# Environments
+.venv/
+venv/
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+htmlcov/
+.coverage
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+
+# Alembic (Phase 2) -- keep migration scripts, ignore local db state
+*.db
