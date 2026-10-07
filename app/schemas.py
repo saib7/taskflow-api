@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 
 
 class TaskBase(BaseModel):
@@ -8,12 +8,10 @@ class TaskBase(BaseModel):
 
 
 class TaskCreate(TaskBase):
-    """What a client sends when creating (or fully updating) a task."""
-
     pass
 
 
-class Task(TaskBase):
-    """What we send back -- adds the server-assigned id."""
-
+class TaskRead(TaskBase):
     id: int
+    model_config = ConfigDict(from_attributes=True)  # build this from task.id, task.title, etc.
+    
